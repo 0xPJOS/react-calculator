@@ -23,6 +23,14 @@ const CalculatorBody = () => {
       setNewSum(false);
     }
 
+    if (input.includes("AC")) {
+      setNewSum(true);
+      setUserInput([]);
+      setFuckSums([]);
+      setCalculation([]);
+      setNewSum(false);
+    }
+
     // if operator button pressed
     if (
       input.includes("/") ||

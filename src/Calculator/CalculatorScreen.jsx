@@ -4,6 +4,9 @@ import styles from "./CalculatorScreen.module.css";
 
 const CalculatorScreen = (props) => {
   const digits = props.screenDigits.map((digit) => {
+    if (digit.input === "AC") {
+      return;
+    }
     return (
       <div
         key={digit.key}
