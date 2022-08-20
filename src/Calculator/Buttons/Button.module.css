@@ -12,6 +12,7 @@
   transition: all 0.1s ease-in-out;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  /* aspect-ratio: 1/1; */
 }
 
 .button.ac {
@@ -35,7 +36,6 @@
 }
 
 .button:active {
-  background-color: #e5e7eb;
   border-radius: 2rem;
 }
 
