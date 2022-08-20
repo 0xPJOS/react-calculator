@@ -30,8 +30,15 @@
 
 body {
   background-color: #e5e5e5;
-  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+h1 {
+  font-family: "Satoshi-Black", sans-serif;
+  font-size: 3.6rem;
+  color: #1f2937;
+  text-align: center;
+  margin-top: 8rem;
 }

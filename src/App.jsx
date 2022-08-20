@@ -5,6 +5,7 @@ import CalculatorBody from "./Calculator/CalculatorBody";
 function App() {
   return (
     <>
+      <h1>ReactCalc</h1>
       <CalculatorBody />
     </>
   );
