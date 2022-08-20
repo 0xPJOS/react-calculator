@@ -1,0 +1,45 @@
+.button {
+  border: solid 1px #d4d4d8;
+  border-radius: 100rem;
+  background-color: transparent;
+  height: 4.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Tabular", "monospace";
+  font-size: 2rem;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+}
+
+.button.ac {
+  background-color: #059669;
+  border: none;
+  color: #f3f4f6;
+}
+
+.button.operator {
+  background-color: #e5e7eb;
+  border: none;
+}
+
+.button.equals {
+  background-color: #facc15;
+  border: none;
+}
+
+.button:hover {
+  background-color: #f5f5f5;
+}
+
+.button.ac:hover {
+  background-color: #047857;
+}
+
+.button.operator:hover {
+  background-color: #d4d4d8;
+}
+
+.button.equals:hover {
+  background-color: #eab308;
+}

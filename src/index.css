@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
+
+@font-face {
+  font-family: "Satoshi-Medium"; /*Can be any text*/
+  src: local("Satoshi-Medium"),
+    url("./fonts/Satoshi-Medium.woff") format("woff"),
+    url("./fonts/Satoshi-Medium.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Satoshi-Black"; /*Can be any text*/
+  src: local("Satoshi-Medium"), url("./fonts/Satoshi-Black.woff") format("woff"),
+    url("./fonts/Satoshi-Black.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Tabular-Regular"; /*Can be any text*/
+  src: local("Tabular-Regular"),
+    url("./fonts/Tabular-Regular.woff") format("woff"),
+    url("./fonts/Tabular-Regular.woff2") format("woff2");
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-size: 62.5%;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  background-color: #e5e5e5;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,37 @@
+.screen-digits {
+  font-family: "Tabular", "monospace";
+  font-size: 3rem;
+}
+
+.operators {
+  color: #9ca3af;
+  margin: 0px 10px 0px 10px;
+}
+
+.digits {
+  font-family: "Tabular", "monospace";
+  font-size: 3rem;
+  margin: 0px -1px 0px -1px;
+}
+
+.decimal {
+  font-family: "Tabular", "monospace";
+  font-size: 3rem;
+  color: #64748b;
+  margin: 0px -4px 0px -4px;
+}
+
+.screen {
+  font-family: "Tabular", "monospace";
+  font-size: 3rem;
+  color: #64748b;
+  background-color: #e2e8f0;
+  height: 5.9rem;
+  border-radius: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  padding-right: 1.6rem;
+  overflow: hidden;
+  white-space: nowrap;
+}
