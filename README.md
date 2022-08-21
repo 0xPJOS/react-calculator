@@ -4,4 +4,5 @@ It's a calculator. But built with React. I'll never have to buy another calculat
 * Used Vite to scaffold a React project
 * Vite SVGR to load in SVG graphics for the buttons
 * The h1 font is Satoshi and the mono-spaced font is Tabular, both from [Fontshare](https://www.fontshare.com/). They have quite a few decent fonts, all open-source and designed by bona-fide typographers.    
-You can view it [here](https://react-calculator-navy-sigma.vercel.app/) courtesy of Vercel.
+
+You can view it [here](https://react-calculator-navy-sigma.vercel.app/). Thanks Vercel!
