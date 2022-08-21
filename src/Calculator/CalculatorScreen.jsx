@@ -4,22 +4,21 @@ import styles from "./CalculatorScreen.module.css";
 
 const CalculatorScreen = (props) => {
   const digits = props.screenDigits.map((digit) => {
-    if (digit.input === "AC") {
-      return;
-    }
+    if (digit.value === "AC") return;
+
     return (
       <div
-        key={digit.key}
+        key={digit.id}
         className={`${styles["screen-digits"]} ${
-          digit.input === "*" ||
-          digit.input === "/" ||
-          digit.input === "+" ||
-          digit.input === "-"
+          digit.value === "*" ||
+          digit.value === "/" ||
+          digit.value === "+" ||
+          digit.value === "-"
             ? styles.operators
             : null
-        } ${digit.input === "." && styles.decimal}`}
+        } ${digit.value === "." && styles.decimal}`}
       >
-        {digit.input}
+        {digit.value}
       </div>
     );
   });

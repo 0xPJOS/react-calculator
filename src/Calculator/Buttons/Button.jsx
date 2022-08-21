@@ -9,39 +9,40 @@ import { ReactComponent as Plus } from "./icons/plus.svg";
 import { ReactComponent as Multiply } from "./icons/multiply.svg";
 
 const Button = (props) => {
-  const clickHandler = (event) => {
-    props.input(props.value.toString());
+  const clickHandler = () => {
+    props.input(props.data);
   };
 
   let icon;
 
   if (!null) {
-    if (props.icon === "./icons/divide.svg") {
+    if (props.data.icon === "./icons/divide.svg") {
       icon = <Divide />;
-    } else if (props.icon === "./icons/equals.svg") {
+    } else if (props.data.icon === "./icons/equals.svg") {
       icon = <Equals />;
-    } else if (props.icon === "./icons/minus.svg") {
+    } else if (props.data.icon === "./icons/minus.svg") {
       icon = <Minus />;
-    } else if (props.icon === "./icons/plus.svg") {
+    } else if (props.data.icon === "./icons/plus.svg") {
       icon = <Plus />;
-    } else if (props.icon === "./icons/multiply.svg") {
+    } else if (props.data.icon === "./icons/multiply.svg") {
       icon = <Multiply />;
     }
   }
 
+  const isOperator =
+    props.data.value === "+" ||
+    props.data.value === "/" ||
+    props.data.value === "*" ||
+    props.data.value == "-";
+
   return (
     <button
-      className={`${styles.button} ${props.value === "AC" && styles.ac} ${
-        props.value === "+" ||
-        props.value === "/" ||
-        props.value === "*" ||
-        props.value == "-"
-          ? styles.operator
-          : null
-      } ${props.value === "=" && styles.equals}`}
+      className={`${styles.button} ${props.data.value === "AC" && styles.ac} ${
+        props.data.isOperator ? styles.operator : null
+      } ${props.data.value === "=" && styles.equals}`}
       onClick={clickHandler}
     >
-      {props.icon ? icon : props.value}
+      {props.data.icon ? icon : props.data.value}
     </button>
   );
 };

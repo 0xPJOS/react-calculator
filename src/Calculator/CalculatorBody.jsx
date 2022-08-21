@@ -6,135 +6,146 @@ import styles from "./CalculatorBody.module.css";
 import ButtonPanel from "./Buttons/ButtonPanel";
 
 const CalculatorBody = () => {
-  const [userInput, setUserInput] = useState([]);
-  const [operator, setOperator] = useState("");
-  const [equals, setEquals] = useState(false);
-  const [calculation, setCalculation] = useState([]);
-  const [sum, setSum] = useState([]);
-  const [newSum, setNewSum] = useState(false);
+  const [userInputData, setUserInputData] = useState([]);
+  const [equalsPressed, setEqualsPressed] = useState(false);
+  const [inputValues, setInputValues] = useState([]);
+  const [formattedValues, setFormattedValues] = useState([]);
+  const [calcReset, setCalcReset] = useState(false);
+  const [receivedInput, setReceivedInput] = useState("");
 
-  const isNum = (num) => !isNaN(num);
-
-  const receiveUserInput = (input) => {
-    if (newSum) {
-      setUserInput([]);
-      setSum([]);
-      setCalculation([]);
-      setNewSum(false);
-    }
-
-    if (input.includes("AC")) {
-      setNewSum(true);
-      setUserInput([]);
-      setSum([]);
-      setCalculation([]);
-    }
-
-    // if operator button pressed
-    if (
-      input.includes("/") ||
-      input.includes("*") ||
-      input.includes("+") ||
-      input.includes("-")
-    ) {
-      setOperator(true);
-      if ((newSum && !equals) || userInput.length === 0) {
-        return;
-      }
-      if (
-        userInput[userInput.length - 1].input === "/" ||
-        userInput[userInput.length - 1].input === "*" ||
-        userInput[userInput.length - 1].input === "+" ||
-        userInput[userInput.length - 1].input === "-"
-      ) {
-        return;
-      }
-      setSum((prevCalc) => {
-        let concatArray = [];
-        concatArray = calculation.join("");
-        return [...prevCalc, concatArray, input];
-      });
-      setCalculation([]);
-    }
-
-    // if number button pressed
-    if (isNum(input)) {
-      setCalculation((prevCalc) => [...prevCalc, input]);
-    }
-
-    // if decimal button pressed
-    if (input === ".") {
-      if (
-        (userInput.length > 0 &&
-          userInput[userInput.length - 1].input === ".") ||
-        calculation.includes(".")
-      ) {
-        return;
-      }
-      console.log(calculation);
-      // const prevDecimalInNumberCheck =
-      setCalculation((prevCalc) => [...prevCalc, input]);
-    }
-
-    // add final num input to fuckSums and then...
-    if (input.includes("=")) {
-      if ((newSum && !equals) || userInput.length === 0 || !sum[0]) {
-        return;
-      }
-      const firstInput = userInput[0].input;
-      const lastInput = userInput[userInput.length - 1].input;
-
-      if (
-        lastInput.includes("/") ||
-        firstInput.includes("/") ||
-        lastInput.includes("*") ||
-        firstInput.includes("*") ||
-        lastInput.includes("-") ||
-        firstInput.includes("-") ||
-        lastInput.includes("+") ||
-        firstInput.includes("+") ||
-        lastInput.includes(".")
-      ) {
-        return;
-      }
-      setSum((prevFuckSums) => {
-        const lastNum = calculation.join("");
-        return [...prevFuckSums, lastNum];
-      });
-      setEquals(true);
-    }
-
-    setUserInput((prevUserInput) => {
-      const receivedInput = {
-        input: input,
-        key: Math.random().toString(),
-        operator: operator,
-        equals: equals,
+  const updateScreenDigits = (input) => {
+    setUserInputData((prevUserInput) => {
+      const digit = {
+        value: input.value,
+        id: Math.random(),
       };
-
-      return [...prevUserInput, receivedInput];
+      return [...prevUserInput, digit];
     });
   };
 
-  if (equals === true) {
-    const result = Function("return " + sum.join(" "))();
+  const resetHandler = (input) => {
+    setCalcReset(false);
+    setUserInputData([]);
+    setFormattedValues([]);
+    setInputValues([]);
+    if (input) {
+      updateScreenDigits(input);
+      setInputValues([...input.value]);
+    }
+  };
+
+  const operatorHandler = (input) => {
+    if (calcReset) return;
+    if (userInputData.length === 0) return;
+
+    if (
+      userInputData[userInputData.length - 1].value === "/" ||
+      userInputData[userInputData.length - 1].value === "*" ||
+      userInputData[userInputData.length - 1].value === "+" ||
+      userInputData[userInputData.length - 1].value === "-" ||
+      userInputData[userInputData.length - 1].value === "."
+    )
+      return;
+
+    setFormattedValues((prevCalc) => {
+      let concatArray = [];
+      concatArray = inputValues.join("");
+      return [...prevCalc, concatArray, receivedInput.value];
+    });
+
+    setInputValues([]);
+    updateScreenDigits(input);
+  };
+
+  const numberHandler = (input) => {
+    if (calcReset) {
+      resetHandler(input);
+      return;
+    }
+    setInputValues((prevCalc) => [...prevCalc, ...input.value]);
+    updateScreenDigits(input);
+  };
+
+  const decimalHandler = (input) => {
+    if (calcReset) {
+      resetHandler(input);
+      return;
+    }
+    if (
+      (userInputData.length > 0 &&
+        userInputData[userInputData.length - 1].input === ".") ||
+      inputValues.includes(".")
+    )
+      return;
+    setInputValues((prevCalc) => [...prevCalc, ...input.value]);
+    updateScreenDigits(input);
+  };
+
+  const equalsHandler = () => {
+    if (calcReset) {
+      resetHandler();
+      return;
+    }
+    if (userInputData.length === 0) return;
+    const lastInput = userInputData[userInputData.length - 1].value;
+    if (
+      lastInput.includes("/") ||
+      lastInput.includes("*") ||
+      lastInput.includes("-") ||
+      lastInput.includes("+") ||
+      lastInput.includes(".")
+    )
+      return;
+
+    setFormattedValues((prevSum) => {
+      const lastNum = inputValues.join("");
+      return [...prevSum, lastNum];
+    });
+
+    setEqualsPressed(true);
+  };
+
+  const receivedInputHandler = (input) => {
+    setReceivedInput(input);
+  };
+
+  const calcFormattedValues = () => {
+    const result = Function("return " + formattedValues.join(" "))();
     const stringResult = result.toString();
-    setUserInput((prevInput) => {
-      setEquals(false);
+
+    setEqualsPressed(false);
+
+    setUserInputData((prevInput) => {
       const finalAnswer = {
-        input: stringResult,
+        value: stringResult,
         key: "result",
         id: "answer",
       };
+
       return [finalAnswer];
     });
-    setNewSum(true);
-  }
+
+    setFormattedValues([]);
+    setInputValues([]);
+    setCalcReset(true);
+  };
+
+  useEffect(() => {
+    receivedInput.isAc && resetHandler();
+    receivedInput.isOperator && operatorHandler(receivedInput);
+    receivedInput.isNumber && numberHandler(receivedInput);
+    receivedInput.isDecimal && decimalHandler(receivedInput);
+    receivedInput.isEquals && equalsHandler();
+  }, [receivedInput]);
+
+  useEffect(() => {
+    equalsPressed && calcFormattedValues();
+  }, [equalsPressed]);
 
   return (
     <article className={styles.calculator}>
-      <CalculatorScreen screenDigits={userInput} />
-      <ButtonPanel onUserInput={receiveUserInput} />
+      <CalculatorScreen screenDigits={userInputData} />
+      <ButtonPanel onUserInput={receivedInputHandler} />
     </article>
   );
 };
