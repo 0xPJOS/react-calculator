@@ -10,7 +10,7 @@ const CalculatorBody = () => {
   const [operator, setOperator] = useState("");
   const [equals, setEquals] = useState(false);
   const [calculation, setCalculation] = useState([]);
-  const [fuckSums, setFuckSums] = useState([]);
+  const [sum, setSum] = useState([]);
   const [newSum, setNewSum] = useState(false);
 
   const isNum = (num) => !isNaN(num);
@@ -18,7 +18,7 @@ const CalculatorBody = () => {
   const receiveUserInput = (input) => {
     if (newSum) {
       setUserInput([]);
-      setFuckSums([]);
+      setSum([]);
       setCalculation([]);
       setNewSum(false);
     }
@@ -26,9 +26,8 @@ const CalculatorBody = () => {
     if (input.includes("AC")) {
       setNewSum(true);
       setUserInput([]);
-      setFuckSums([]);
+      setSum([]);
       setCalculation([]);
-      setNewSum(false);
     }
 
     // if operator button pressed
@@ -50,7 +49,7 @@ const CalculatorBody = () => {
       ) {
         return;
       }
-      setFuckSums((prevCalc) => {
+      setSum((prevCalc) => {
         let concatArray = [];
         concatArray = calculation.join("");
         return [...prevCalc, concatArray, input];
@@ -79,7 +78,7 @@ const CalculatorBody = () => {
 
     // add final num input to fuckSums and then...
     if (input.includes("=")) {
-      if ((newSum && !equals) || userInput.length === 0) {
+      if ((newSum && !equals) || userInput.length === 0 || !sum[0]) {
         return;
       }
       const firstInput = userInput[0].input;
@@ -98,7 +97,7 @@ const CalculatorBody = () => {
       ) {
         return;
       }
-      setFuckSums((prevFuckSums) => {
+      setSum((prevFuckSums) => {
         const lastNum = calculation.join("");
         return [...prevFuckSums, lastNum];
       });
@@ -118,14 +117,13 @@ const CalculatorBody = () => {
   };
 
   if (equals === true) {
-    const result = Function("return " + fuckSums.join(" "))();
+    const result = Function("return " + sum.join(" "))();
     const stringResult = result.toString();
-    console.log(stringResult);
     setUserInput((prevInput) => {
       setEquals(false);
       const finalAnswer = {
         input: stringResult,
-        key: "fuck",
+        key: "result",
         id: "answer",
       };
       return [finalAnswer];

@@ -28,7 +28,8 @@ const CalculatorScreen = (props) => {
 
   return (
     <div className={styles.screen}>
-      {props.screenDigits.length > 0 ? digits : "0"}
+      {/* {props.screenDigits.length > 0 ? digits : "0"} */}
+      {digits}
     </div>
   );
 };
